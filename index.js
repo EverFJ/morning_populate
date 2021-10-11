@@ -29,12 +29,6 @@ const address1 = new Address({
 //     })
 // })
 
-
-Student.find()
-    .populate("address")
-    .then(student => console.log(student))
-    .catch(err => console.error(err))
-
 const saveData = (student, address) => {
     const addressToSave = new Address(address)
     addressToSave.save((err) => {
@@ -51,22 +45,39 @@ const saveData = (student, address) => {
     })
 }
 
-saveData({
-    firstName: "John",
-    surName: "Doe",
-}, {
-    streetName: "Thing Street",
-    streetNumber: "14",
-    postCode: "25145",
-    city: "NeverLand"
-})
+Student.find()
+    .populate("address")
+    .then(student => console.log(student))
+    .catch(err => console.error(err))
 
-mongoose.connect(db, (error) => {
-    if (error) {
-        console.error(error)
-        process.exit(1)
-    }
-    console.log(`Connected to ${db}`)
+
+// saveData({
+//     firstName: "John",
+//     surName: "Doe",
+// }, {
+//     streetName: "Thing Street",
+//     streetNumber: "14",
+//     postCode: "25145",
+//     city: "NeverLand"
+// })
+
+// mongoose.connect(db, (error) => {
+//     if (error) {
+//         console.error(error)
+//         process.exit(1)
+//     }
+//     console.log(`Connected to ${db}`)
+// })
+
+mongoose.connect(db)
+mongoose.connection.on("connected", () => {
+    console.log(`Db connection open to ${mongoose.connection.host} ${mongoose.connection.name}`)
+})
+mongoose.connection.on("error", (err) => {
+    console.log("Mongoose default connection error", err)
+})
+mongoose.connection.on("disconnected", () => {
+    console.log("Mongoose default connection disconnected")
 })
 
 app.listen(port, () => {
