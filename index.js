@@ -12,6 +12,8 @@ const address1 = new Address({
     postCode: "75001",
     city: "Paris"
 });
+
+// Callbacks
 // address1.save((err) => {
 //     if (err) {
 //         console.error(err)
@@ -28,6 +30,21 @@ const address1 = new Address({
 //         }
 //     })
 // })
+
+
+// Promises
+// address.save()
+//     .then(newAddress => {
+//         const student = new Student({
+//             firstName: "François",
+//             surName: "Janson",
+//             address: newAddress._id
+//         })
+//         student.save()
+//             .then(console.log)
+//             .catch(console.error)
+//     })
+//     .catch(console.error)
 
 const saveData = (student, address) => {
     const addressToSave = new Address(address)
@@ -60,6 +77,8 @@ Student.find()
 //     postCode: "25145",
 //     city: "NeverLand"
 // })
+
+
 
 // mongoose.connect(db, (error) => {
 //     if (error) {
